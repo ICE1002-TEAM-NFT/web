@@ -48,7 +48,8 @@
              <div id="cont_cont">
                 <div class="container">
                     <div class="cont">
-                        <h3><span class="ico_tit">5호동관(5-4동)<button id="change_button" type="button" style = "float:right;" onclick='fn_display()' >정보 불러오기</button></span></h3>
+                        <div class="column col1">
+                            <h3><span class="ico_tit">5호동관(5-4동)<button id="change_button" type="button" style = "float:right;" onclick='fn_display()' >정보 불러오기</button></span></h3>
                             
                             <p class="ico_desc"></p>
                             <!-- 게시판 1 -->
@@ -140,4 +141,35 @@
     </div>
     <!-- //wrap -->               
 </body>
+    
+<script>
+    var tmp;
+
+    function fn_fetch() {
+        const response = fetch("/building_1/307");
+
+        return response.then(res => res.json());
+    }
+
+    async function fn_display() {
+        tmp = await fn_fetch();
+
+        console.log(tmp);
+        console.log(JSON.parse(tmp))
+
+        const data = JSON.parse(tmp);
+        const state102 = document.getElementsByClassName('102_state')[0];
+
+        if (data.info == "Empty") {
+            state102.innerText = "빈 강의실입니다!";
+        }
+        else {
+            state102.innerText = "사용중인 강의실입니다.";
+        }
+
+    }
+
+
+</script>
+
 </html> 
